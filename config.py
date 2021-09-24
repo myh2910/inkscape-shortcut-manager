@@ -3,26 +3,21 @@ import subprocess
 from pathlib import Path
 
 def open_editor(filename):
-    subprocess.run([
-        'urxvt',
-        '-geometry', '60x5',
-        '-name', 'popup-bottom-center',
-        '-e', "vim",
-        f"{filename}",
-    ])
+	subprocess.run([
+		'vim', filename,
+	])
 
 def latex_document(latex):
-    return r"""
-        \documentclass[12pt,border=12pt]{standalone}
+	return r"""
+\documentclass[10pt,border=10pt]{standalone}
+\usepackage[nosetup,nothm]{evan}
 
-        \usepackage[utf8]{inputenc}
-        \usepackage[T1]{fontenc}
-        \usepackage{textcomp}
-        \usepackage{amsmath, amssymb}
-        \newcommand{\R}{\mathbb R}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mhchem}
 
-        \begin{document}
-    """ + latex + r"\end{document}"
+\begin{document}
+""" + latex + r"\end{document}"
 
 config = {
     # For example '~/.config/rofi/ribbon.rasi' or None
