@@ -8,26 +8,31 @@ from Xlib import X
 
 def open_vim(self, compile_latex):
 	f = tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.tex')
-
-	f.write('$$')
 	f.close()
 
 	config['open_editor'](f.name)
 
 	latex = ""
 	with open(f.name, 'r') as g:
-		latex = g.read().strip()
+		latex = g.read()
+	while True:
+		if latex != "":
+			break
+		else:
+			with open(f.name, 'r') as g:
+				latex = g.read()
 
 	os.remove(f.name)
 
-	if latex != '$$':
+	if latex.strip() != '':
 		if not compile_latex:
 			svg = f"""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-			<svg>
-				<text
-					style="font-size:{config['font_size']}px; font-family:'{config['font']}';-inkscape-font-specification:'{config['font']}, Normal';fill:#000000;fill-opacity:1;stroke:none;"
-					xml:space="preserve"><tspan sodipodi:role="line" >{latex}</tspan></text>
-			</svg> """
+	<svg>
+		<text
+			style="font-size:{config['font_size']}px; font-family:'{config['font']}';-inkscape-font-specification:'{config['font']},Normal';fill:#000000;fill-opacity:1;stroke:none;"
+			xml:space="preserve"><tspan sodipodi:role="line">{latex}</tspan></text>
+	</svg>
+"""
 			copy(svg, target=TARGET)
 		else:
 			m = tempfile.NamedTemporaryFile(mode='w+', delete=False)
@@ -53,5 +58,4 @@ def open_vim(self, compile_latex):
 					stdin=svg
 				)
 
-		self.press('v', X.ControlMask)
 	self.press('Escape')

@@ -9,7 +9,6 @@ def rofi(prompt, options, rofi_args=[], fuzzy=True):
 	args += rofi_args
 	args = [str(arg) for arg in args]
 
-
 	result = subprocess.run(args, input=optionstr, stdout=subprocess.PIPE, universal_newlines=True)
 	returncode = result.returncode
 	stdout = result.stdout.strip()
