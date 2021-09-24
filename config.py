@@ -5,7 +5,7 @@ from pathlib import Path
 def open_editor(filename):
 	subprocess.run([
 		'xfce4-terminal',
-		'--geometry', '70x87',
+		'--geometry', '70x7',
 		'--title', 'popup-bottom-center',
 		'--hide-scrollbar',
 		'--command', f"vim {filename}",
