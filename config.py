@@ -4,12 +4,15 @@ from pathlib import Path
 
 def open_editor(filename):
 	subprocess.run([
-		'vim', filename,
+		'xfce4-terminal',
+		'--geometry', '70x87',
+		'--title', 'popup-bottom-center',
+		'--hide-scrollbar',
+		'--command', f"vim {filename}",
 	])
 
 def latex_document(latex):
-	return r"""
-	\documentclass[10pt,border=10pt]{standalone}
+	return r"""\documentclass[10pt,border=10pt]{standalone}
 	\usepackage[nosetup,nothm]{evan}
 
 	\usepackage[utf8]{inputenc}
