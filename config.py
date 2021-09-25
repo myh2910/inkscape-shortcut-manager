@@ -5,22 +5,20 @@ from pathlib import Path
 def open_editor(filename):
 	subprocess.run([
 		'xfce4-terminal',
-		'--geometry', '70x7',
+		'--geometry', '70x10',
 		'--role', 'pop-up',
 		'--hide-scrollbar',
 		'--command', f"vim {filename}",
 	])
 
-def latex_document(latex):
+def latex_document(latex = "<++>"):
 	return r"""\documentclass[10pt,border=10pt]{standalone}
 \usepackage[nosetup,nothm]{evan}
-
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{mhchem}
 
 \begin{document}
-""" + latex + r"\end{document}"
+""" + latex + r"""
+\end{document}"""
 
 config = {
 	# For example '~/.config/rofi/ribbon.rasi' or None
