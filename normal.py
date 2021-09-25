@@ -15,18 +15,11 @@ pressed = set()
 events = []
 
 def event_to_string(self, event):
-	mods = []
-	if event.state & X.ShiftMask:
-		mods.append('Shift')
-
-	if event.state & X.ControlMask:
-		mods.append('Control')
-
 	keycode = event.detail
 	keysym = self.disp.keycode_to_keysym(keycode, 0)
 	char = XK.keysym_to_string(keysym)
 
-	return ''.join(mod + '+' for mod in mods) + (char if char else '?')
+	return ('Ctrl+' if (event.state & X.ControlMask) else '') + (char if char else '?')
 
 def replay(self):
 	for e in events:
@@ -65,19 +58,19 @@ def handle_single_key(self, ev):
 	if ev == 't':
 		# Vim mode
 		open_vim(self, compile_latex=False)
-	elif ev == 'Shift+t':
+	elif ev == 'Ctrl+t':
 		# Vim mode prerendered
 		open_vim(self, compile_latex=True)
 	elif ev == 'a':
 		# Add objects mode
 		self.mode = styles.object_mode
-	elif ev == 'Shift+a':
+	elif ev == 'Ctrl+a':
 		# Save objects mode
 		styles.save_object_mode(self)
 	elif ev == 's':
 		# Apply style mode
 		self.mode = styles.style_mode
-	elif ev == 'Shift+s':
+	elif ev == 'Ctrl+s':
 		# Save style mode
 		styles.save_style_mode(self)
 	elif ev == 'w':
@@ -92,7 +85,7 @@ def handle_single_key(self, ev):
 	elif ev == 'z':
 		# Undo
 		self.press('z', X.ControlMask)
-	elif ev == 'Shift+z':
+	elif ev == 'Ctrl+z':
 		# Delete
 		self.press('Delete')
 	elif ev == '`':
