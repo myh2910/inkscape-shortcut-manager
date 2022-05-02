@@ -24,7 +24,6 @@ def open_vim(self, compile_latex):
 
 	os.remove(f.name)
 	if latex.strip() == '':
-		print('Empty file')
 		return False
 
 	if latex.strip() != template.strip():
@@ -66,5 +65,5 @@ def open_vim(self, compile_latex):
 				if os.path.exists(file_name):
 					os.remove(file_name)
 
-		print('Done!')
+		self.press('v', X.ControlMask)
 	self.press('Escape')
